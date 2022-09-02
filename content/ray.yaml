@@ -1,0 +1,85 @@
+log:
+  loglevel: info
+dns:
+  servers:
+  - https+local://8.8.8.8/dns-query
+inbounds:
+- port: 61079
+  protocol: vless
+  settings:
+    decryption: none
+    clients:
+    - id: UUID
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /vless
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+- port: 61080
+  protocol: vmess
+  settings:
+    clients:
+    - id: UUID
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /vmess
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+- port: 61081
+  protocol: shadowsocks
+  settings:
+    password: UUID
+    method: SSencryption
+    ivcheck: true
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /sh
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+- port: 61082
+  protocol: trojan
+  settings:
+    clients:
+    - password: UUID
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /trojan
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+- port: 52123
+  protocol: socks
+  settings:
+    auth: noauth
+    accounts:
+    - user: UUID
+      pass: UUID
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /so
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+outbounds:
+- protocol: freedom
+  tag: direct
+  settings:
+    domainStrategy: UseIPv4
